@@ -1,0 +1,7 @@
+dash>=4.2,<5
+dash-mantine-components==2.8.0
+dash-ag-grid==35.2.0
+dash-iconify>=0.1.2
+plotly>=6.3,<7
+pandas>=2.2,<3
+numpy>=2.0,<3

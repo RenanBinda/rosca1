@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=70"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rosca-dash"
+version = "0.1.0"
+description = "ROSCA — Real-time Online Screw Compressor Analysis UX implementation"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 120
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
