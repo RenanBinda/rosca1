@@ -1,9 +1,8 @@
 """ROSCA application entrypoint.
 
-The task-oriented interface lives in app_v2.py so the legacy prototype remains
-available in Git history while the evolution branch runs the new workspace.
+The production evolution UI is implemented in app_v3.py.
 """
-from app_v2 import app, server
+from app_v3 import app, server
 
 
 if __name__ == "__main__":
