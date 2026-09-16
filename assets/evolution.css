@@ -1,34 +1,62 @@
 :root {
-  --rosca-blue: #38a8ff;
-  --rosca-border: rgba(128, 148, 168, .18);
-  --rosca-panel: rgba(18, 25, 33, .88);
-  --rosca-panel-strong: rgba(24, 33, 43, .96);
+  --rosca-blue: #0E68FF;
+  --rosca-navy: #0F172A;
+  --rosca-slate: #1E293B;
+  --rosca-mist: #CBD5E1;
+  --rosca-green: #22C55E;
+  --rosca-red: #EF4444;
+  --rosca-amber: #F59E0B;
+  --rosca-border: rgba(203, 213, 225, .14);
+  --rosca-border-strong: rgba(14, 104, 255, .42);
+  --rosca-panel: #0F172A;
+  --rosca-panel-2: #1E293B;
+  --rosca-text: #F8FAFC;
 }
 
-body { letter-spacing: .005em; }
+body {
+  letter-spacing: .004em;
+  background: var(--rosca-navy);
+}
+
+.rosca-brand-mark { display: inline-flex; align-items: center; justify-content: center; }
 
 .workspace-surface {
   min-height: 640px;
   border: 1px solid var(--rosca-border);
-  border-radius: 12px;
+  border-radius: 8px;
   padding: 12px;
-  background: var(--rosca-panel);
-  box-shadow: 0 16px 48px rgba(0,0,0,.16);
+  background: linear-gradient(145deg, rgba(30,41,59,.96), rgba(15,23,42,.98));
+  box-shadow: 0 18px 50px rgba(2, 6, 23, .30);
 }
 
-.task-rail { position: sticky; top: 72px; background: var(--rosca-panel); }
+.task-rail {
+  position: sticky;
+  top: 72px;
+  background: rgba(15,23,42,.96);
+  border-color: var(--rosca-border) !important;
+}
 .task-rail .mantine-ThemeIcon-root { flex: 0 0 auto; }
 
 .analysis-toolbar {
   min-height: 42px;
   padding: 5px 7px;
   border: 1px solid var(--rosca-border);
-  border-radius: 9px;
-  background: var(--rosca-panel-strong);
+  border-radius: 7px;
+  background: var(--rosca-slate);
 }
 
-.mantine-Button-root, .mantine-ActionIcon-root, .mantine-Tabs-tab { transition: transform .12s ease, background .12s ease, border-color .12s ease; }
-.mantine-Button-root:hover, .mantine-ActionIcon-root:hover { transform: translateY(-1px); }
+.identity-page { max-width: 1280px; margin: 0 auto; }
+.identity-swatch { background: rgba(30,41,59,.72); }
+
+.mantine-Button-root,
+.mantine-ActionIcon-root,
+.mantine-Tabs-tab,
+.mantine-Badge-root {
+  transition: transform .12s ease, background .12s ease, border-color .12s ease, box-shadow .12s ease;
+}
+.mantine-Button-root:hover,
+.mantine-ActionIcon-root:hover { transform: translateY(-1px); }
+.mantine-Tabs-tab[data-active] { box-shadow: inset 0 -2px 0 var(--rosca-blue); }
 
 @media (max-width: 900px) {
   .task-rail { position: static; }
