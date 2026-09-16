@@ -25,10 +25,16 @@ def wordmark(size: str = "md", *, show_descriptor: bool = True):
     sizes = {"sm": (18, "xs"), "md": (25, "sm"), "lg": (34, "md")}
     title_size, descriptor_size = sizes.get(size, sizes["md"])
     children = [
-        dmc.Text("ROSCA", fw=900, size=str(title_size) + "px", lh=1, style={"letterSpacing": ".075em", "color": "var(--rosca-text)"}),
+        dmc.Text(
+            "ROSCA",
+            size="lg",
+            fw=900,
+            lh=1,
+            style={"fontSize": f"{title_size}px", "fontFamily": "Montserrat, Inter, sans-serif", "letterSpacing": ".075em", "color": "var(--rosca-text)"},
+        ),
     ]
     if show_descriptor:
-        children.append(dmc.Text("ENGINEERING INTELLIGENCE", size=descriptor_size, fw=700, c="blue", style={"letterSpacing": ".11em"}))
+        children.append(dmc.Text("ENGINEERING INTELLIGENCE", size=descriptor_size, fw=700, c="blue", style={"letterSpacing": ".11em", "fontFamily": "Inter, sans-serif"}))
     return dmc.Stack(children, gap=3)
 
 
