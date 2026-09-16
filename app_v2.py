@@ -14,6 +14,8 @@ import plotly.graph_objects as go
 from dash import Input, Output, State, dcc, html, no_update
 from dash_iconify import DashIconify
 
+# Must be imported before constructing the layout: the repository targets DMC 2.8.
+from components import dmc_compat  # noqa: F401
 from application.export import build_project_zip
 from application.services import calculate_preview, parameter_hash, validate_project
 from components.analysis_toolbar import analysis_toolbar
@@ -129,7 +131,7 @@ def shell():
         ], fluid=True, p="md")),
     ], header={"height":58}, navbar={"width":78,"breakpoint":"sm"}, padding=0)
 
-app.layout = dmc.MantineProvider(theme=ROSCA_THEME, forceColorScheme="dark", children=shell())
+app.layout = dmc.MantineProvider(theme=ROSCA_THEME, children=shell())
 
 
 def read_params(values):
@@ -156,7 +158,7 @@ def validate_click(_, *values):
     Output("workspace", "children"), Output("progress", "value"), Output("progress-label", "children"), Output("stage-badge", "children"), Output("stage-badge", "color"), Output("result-id", "children"), Output("interaction-hint", "children"),
     Input("simulate", "n_clicks"), Input("workspace-tabs", "value"), Input("analysis-mode", "value"),
     [State(f"{id_}", "value") for id_ in ["main-external","gate-external","main-pitch","clearance","leading-angle","trailing-angle","points"]],
-    State("analysis-store", "data"), State("_dash-app-content", "children"),
+    State("analysis-store", "data"),
     prevent_initial_call=False,
 )
 def workspace_update(simulate_clicks, tab, mode, *args):
@@ -190,11 +192,6 @@ def export_click(_, *values):
     if report.errors:
         return no_update
     result_id, data, result_report = calculate_preview(params)
-    rows = coordinate_rows(data, limit=1000)
-    project = {"name":"ROSCA project", "version":"2.0", "parameters":params.to_dict(), "result_id":result_id}
-    payload = build_project_zip(project, rows, result_report.to_dict(), {"points":len(data["main_x"]), "solver":"preview"})
-    return dcc.send_bytes(lambda b: b.write(payload), "rosca-project.zip")
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+    project = {"name":"ROSCA project", "version":"2.0", "parameters":params.__dict__ if hasattr(params,"__dict__") else {k:getattr(params,k) for k in FIELDS}, "result_id":result_id}
+    blob = build_project_zip(project, data, result_report, {})
+    return dcc.send_bytes(blob, "rosca-project.zip")
